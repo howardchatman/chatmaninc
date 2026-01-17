@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Chatman Inc</title>
+  <meta name="description" content="Case studies and portfolio of AI business architecture projects. See how we've helped companies transform operations with intelligent systems.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --dark: #0a0a0b;
+      --dark-light: #141416;
+      --dark-lighter: #1a1a1c;
+      --cream: #e8d5b7;
+      --cream-soft: #f0e6d3;
+      --cream-muted: #c4b49a;
+      --white: #ffffff;
+      --gray: #e5e7eb;
+      --gray-muted: #71717a;
+      --border: rgba(232, 213, 183, 0.12);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ========== NAVIGATION ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 10, 11, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 120px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      color: var(--gray-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--cream);
+    }
+
+    .nav-cta {
+      padding: 0.75rem 1.25rem;
+      background: var(--cream);
+      color: var(--dark);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--cream-soft);
+    }
+
+    .nav-mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--cream);
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 101;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-mobile-toggle { display: block; }
+      .nav-logo img { height: 90px; }
+      .nav-container { height: 110px; }
+    }
+
+    /* ========== PAGE HEADER ========== */
+    .page-header {
+      padding: 12rem 1.5rem 4rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .page-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .page-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.1rem;
+      color: var(--gray-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ========== PORTFOLIO GRID ========== */
+    .portfolio {
+      padding: 4rem 1.5rem;
+    }
+
+    .portfolio-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .portfolio-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      align-items: center;
+    }
+
+    .portfolio-item:last-child {
+      border-bottom: none;
+    }
+
+    .portfolio-item:nth-child(even) {
+      direction: rtl;
+    }
+
+    .portfolio-item:nth-child(even) > * {
+      direction: ltr;
+    }
+
+    @media (max-width: 900px) {
+      .portfolio-item,
+      .portfolio-item:nth-child(even) {
+        grid-template-columns: 1fr;
+        direction: ltr;
+        gap: 2rem;
+      }
+    }
+
+    .portfolio-image {
+      background: var(--dark-light);
+      border: 1px solid var(--border-subtle);
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portfolio-image-placeholder {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 2rem;
+      color: var(--cream-muted);
+      opacity: 0.3;
+    }
+
+    .portfolio-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .portfolio-content {
+      padding: 1rem 0;
+    }
+
+    .portfolio-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: rgba(232, 213, 183, 0.1);
+      padding: 0.4rem 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .portfolio-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .portfolio-desc {
+      font-size: 1rem;
+      color: var(--gray-muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .portfolio-highlights {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .portfolio-highlights li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--gray-muted);
+      padding: 0.5rem 0;
+    }
+
+    .portfolio-highlights li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--cream);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 0.5rem;
+    }
+
+    .portfolio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--cream);
+      text-decoration: none;
+      transition: gap 0.3s;
+    }
+
+    .portfolio-link:hover {
+      gap: 0.75rem;
+    }
+
+    .portfolio-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ========== CTA ========== */
+    .cta {
+      padding: 6rem 1.5rem;
+      text-align: center;
+      background: var(--dark-light);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .cta-container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .cta-title em {
+      font-style: italic;
+      color: var(--cream);
+    }
+
+    .cta-text {
+      font-size: 1rem;
+      color: var(--gray-muted);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--cream);
+      color: var(--dark);
+    }
+
+    .btn-primary:hover {
+      background: var(--cream-soft);
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (max-width: 600px) {
+      .footer-container {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+
+    .footer-logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--gray-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--gray-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--cream);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.png" alt="Chatman Inc">
+      </a>
+      <div class="nav-links">
+        <a href="index.html#services" class="nav-link">Capabilities</a>
+        <a href="index.html#approach" class="nav-link">Approach</a>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <a href="mailto:howard@chatmaninc.com" class="nav-cta">Get Started</a>
+      </div>
+      <button class="nav-mobile-toggle" id="menuToggle" aria-label="Menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <p class="page-eyebrow">Portfolio</p>
+    <h1 class="page-title">Proof of architectural execution</h1>
+    <p class="page-subtitle">Case studies showcasing how we've helped companies transform operations with intelligent systems.</p>
+  </header>
+
+  <!-- Portfolio -->
+  <section class="portfolio">
+    <div class="portfolio-container">
+
+      <!-- AIVA -->
+      <article class="portfolio-item">
+        <div class="portfolio-image">
+          <img src="aiva-mockup.png" alt="AIVA AI Voice & Decision System">
+        </div>
+        <div class="portfolio-content">
+          <span class="portfolio-tag">AI Decision Platform</span>
+          <h2 class="portfolio-title">AIVA — AI Voice & Decision System</h2>
+          <p class="portfolio-desc">
+            Architected voice and decision systems that manage inbound demand, filter noise, and route high-value interactions automatically. Built for businesses that need intelligent call handling at scale.
+          </p>
+          <ul class="portfolio-highlights">
+            <li>AI-powered voice reception</li>
+            <li>Intelligent call routing and filtering</li>
+            <li>Lead qualification and scheduling</li>
+            <li>CRM integration and logging</li>
+          </ul>
+          <a href="https://connectaiva.com" target="_blank" class="portfolio-link">
+            View Project
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Real Estate Platform -->
+      <article class="portfolio-item">
+        <div class="portfolio-image">
+          <span class="portfolio-image-placeholder">Real Estate Platform</span>
+        </div>
+        <div class="portfolio-content">
+          <span class="portfolio-tag">AI Architecture</span>
+          <h2 class="portfolio-title">Real Estate Platform</h2>
+          <p class="portfolio-desc">
+            Architected an end-to-end property platform with AI-powered lead routing, automated scheduling, intelligent chat, and unified admin operations. Built to handle high-volume inquiries while qualifying leads automatically.
+          </p>
+          <ul class="portfolio-highlights">
+            <li>AIVA AI integration for 24/7 lead qualification</li>
+            <li>Automated scheduling and booking system</li>
+            <li>Admin dashboard with real-time analytics</li>
+            <li>User portal for property management</li>
+          </ul>
+          <a href="https://realestatedemo.chatmaninc.com" target="_blank" class="portfolio-link">
+            View Live Demo
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Insurance Operations -->
+      <article class="portfolio-item">
+        <div class="portfolio-image">
+          <span class="portfolio-image-placeholder">Insurance Platform</span>
+        </div>
+        <div class="portfolio-content">
+          <span class="portfolio-tag">AI Architecture</span>
+          <h2 class="portfolio-title">Insurance Operations System</h2>
+          <p class="portfolio-desc">
+            Designed intelligent policy management with AI decision support, automated claims routing, and 24/7 customer interaction handling. Reduced response times and improved claim approval workflows.
+          </p>
+          <ul class="portfolio-highlights">
+            <li>AI-powered customer support chat</li>
+            <li>Automated policy management system</li>
+            <li>Claims tracking and routing</li>
+            <li>Real-time performance dashboards</li>
+          </ul>
+          <a href="https://insurancedemo.chatmaninc.com" target="_blank" class="portfolio-link">
+            View Live Demo
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Houston Texas Pro -->
+      <article class="portfolio-item">
+        <div class="portfolio-image">
+          <span class="portfolio-image-placeholder">Houston Texas Pro</span>
+        </div>
+        <div class="portfolio-content">
+          <span class="portfolio-tag">Directory Platform</span>
+          <h2 class="portfolio-title">Houston Texas Pro</h2>
+          <p class="portfolio-desc">
+            Built a scalable contractor marketplace with intelligent matching, automated lead distribution, and performance tracking systems. Connects Houston homeowners with trusted service professionals.
+          </p>
+          <ul class="portfolio-highlights">
+            <li>Contractor directory and profiles</li>
+            <li>Lead distribution system</li>
+            <li>Review and rating management</li>
+            <li>Local SEO optimization</li>
+          </ul>
+          <a href="https://houstontexaspro.com" target="_blank" class="portfolio-link">
+            View Project
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 30 Day Faith -->
+      <article class="portfolio-item">
+        <div class="portfolio-image">
+          <span class="portfolio-image-placeholder">30 Day Faith</span>
+        </div>
+        <div class="portfolio-content">
+          <span class="portfolio-tag">Digital Strategy</span>
+          <h2 class="portfolio-title">30 Day Faith</h2>
+          <p class="portfolio-desc">
+            Executed full go-to-market strategy with automated fulfillment, email sequences, and conversion-optimized funnels. Built the infrastructure for a devotional product line to scale.
+          </p>
+          <ul class="portfolio-highlights">
+            <li>Landing page and sales funnel</li>
+            <li>Email marketing automation</li>
+            <li>Digital product delivery</li>
+            <li>Conversion optimization</li>
+          </ul>
+          <a href="https://30dayfaith.chatmaninc.com" target="_blank" class="portfolio-link">
+            View Project
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Security Operations -->
+      <article class="portfolio-item">
+        <div class="portfolio-image">
+          <span class="portfolio-image-placeholder">Security Operations</span>
+        </div>
+        <div class="portfolio-content">
+          <span class="portfolio-tag">Operations Optimization</span>
+          <h2 class="portfolio-title">Security Operations</h2>
+          <p class="portfolio-desc">
+            Designed and implemented operational systems for safety, compliance, and service delivery across enterprise clients. Streamlined workflows and improved response times.
+          </p>
+          <ul class="portfolio-highlights">
+            <li>Operational workflow design</li>
+            <li>Compliance tracking systems</li>
+            <li>Service delivery optimization</li>
+            <li>Reporting and analytics</li>
+          </ul>
+          <a href="https://securitydemo.chatmaninc.com" target="_blank" class="portfolio-link">
+            View Live Demo
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-container">
+      <h2 class="cta-title">Ready to embed <em>intelligence</em> into your operations?</h2>
+      <p class="cta-text">
+        Let's diagnose where intelligence should be embedded and what systems will deliver immediate operational leverage.
+      </p>
+      <a href="mailto:howard@chatmaninc.com" class="btn btn-primary">Schedule a Strategy Call</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="logo.png" alt="Chatman Inc">
+      </div>
+      <div class="footer-copy">© 2026 Chatman Inc. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="mailto:howard@chatmaninc.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
