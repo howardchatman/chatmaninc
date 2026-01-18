@@ -2,10 +2,14 @@ import { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-// Admin users whitelist
-const ADMIN_EMAILS = [
-  'howard@chatmaninc.com',
-];
+// Admin users with their passwords (stored in env vars)
+const ADMIN_USERS: Record<string, { name: string; passwordEnvVar: string }> = {
+  'howard@chatmaninc.com': { name: 'Howard Chatman', passwordEnvVar: 'ADMIN_PASSWORD' },
+  'ecko@chatmaninc.com': { name: 'Ecko Chatman', passwordEnvVar: 'ADMIN_PASSWORD_ECKO' },
+};
+
+// Admin emails list for quick lookup
+const ADMIN_EMAILS = Object.keys(ADMIN_USERS);
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -13,7 +17,7 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
-    // Fallback credentials provider for development
+    // Credentials provider for admin login
     CredentialsProvider({
       name: 'Admin Login',
       credentials: {
@@ -21,21 +25,27 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        // In production, use proper password hashing
-        // This is a simple check for the admin email
-        if (
-          credentials?.email &&
-          ADMIN_EMAILS.includes(credentials.email) &&
-          credentials.password === process.env.ADMIN_PASSWORD
-        ) {
-          return {
-            id: '1',
-            email: credentials.email,
-            name: 'Howard Chatman',
-            role: 'admin',
-          };
+        if (!credentials?.email || !credentials?.password) {
+          return null;
         }
-        return null;
+
+        const adminUser = ADMIN_USERS[credentials.email];
+        if (!adminUser) {
+          return null;
+        }
+
+        // Get the password from the appropriate env var
+        const expectedPassword = process.env[adminUser.passwordEnvVar];
+        if (credentials.password !== expectedPassword) {
+          return null;
+        }
+
+        return {
+          id: credentials.email,
+          email: credentials.email,
+          name: adminUser.name,
+          role: 'admin',
+        };
       },
     }),
   ],
