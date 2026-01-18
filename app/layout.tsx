@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, DM_Sans } from "next/font/google";
 import "./globals.css";
+import ClientLayout from "@/components/ClientLayout";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable}`}>
       <body className="font-sans antialiased bg-dark text-white">
-        {children}
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
