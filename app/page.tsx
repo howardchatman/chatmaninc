@@ -833,6 +833,10 @@ export default function Home() {
                 <a href="mailto:support@chatmaninc.com" className="hover:text-gold transition-colors">
                   support@chatmaninc.com
                 </a>
+                <span className="mx-2">|</span>
+                <Link href="/admin" className="hover:text-gold transition-colors">
+                  Admin Portal
+                </Link>
               </p>
             </div>
           </div>
