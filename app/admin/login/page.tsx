@@ -107,7 +107,7 @@ export default function AdminLoginPage() {
           </div>
 
           {/* Credentials Login */}
-          <form onSubmit={handleCredentialsLogin} className="space-y-4">
+          <form onSubmit={handleCredentialsLogin} className="space-y-4" autoComplete="off">
             <div>
               <label htmlFor="email" className="block text-sm text-gray-muted mb-2">
                 Email
@@ -115,10 +115,12 @@ export default function AdminLoginPage() {
               <input
                 type="email"
                 id="email"
+                name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 bg-dark border border-gray-dark/30 rounded-lg text-white focus:border-gold focus:outline-none transition-colors"
-                placeholder="howard@chatmaninc.com"
+                placeholder="Enter your email"
+                autoComplete="off"
                 required
               />
             </div>
@@ -129,10 +131,12 @@ export default function AdminLoginPage() {
               <input
                 type="password"
                 id="password"
+                name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 bg-dark border border-gray-dark/30 rounded-lg text-white focus:border-gold focus:outline-none transition-colors"
-                placeholder="••••••••"
+                placeholder="Enter your password"
+                autoComplete="new-password"
                 required
               />
             </div>
