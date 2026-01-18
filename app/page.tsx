@@ -1,10 +1,70 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import LeadCaptureModal from '@/components/LeadCaptureModal';
+
+const MODAL_SHOWN_KEY = 'lead_modal_shown';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalShownThisSession, setModalShownThisSession] = useState(false);
+
+  // Check if modal was already shown this session
+  useEffect(() => {
+    const shown = sessionStorage.getItem(MODAL_SHOWN_KEY);
+    if (shown === 'true') {
+      setModalShownThisSession(true);
+    }
+  }, []);
+
+  // Open modal and mark as shown
+  const openModal = useCallback(() => {
+    if (!modalShownThisSession) {
+      setIsModalOpen(true);
+      setModalShownThisSession(true);
+      sessionStorage.setItem(MODAL_SHOWN_KEY, 'true');
+    }
+  }, [modalShownThisSession]);
+
+  // Close modal
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  // Intent trigger handler (for CTA clicks)
+  const handleIntentClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    openModal();
+  }, [openModal]);
+
+  // Scroll trigger: 50% of first viewport
+  useEffect(() => {
+    if (modalShownThisSession) return;
+
+    const handleScroll = () => {
+      const scrollThreshold = window.innerHeight * 0.5;
+      if (window.scrollY >= scrollThreshold) {
+        openModal();
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [modalShownThisSession, openModal]);
+
+  // Time trigger: 30 seconds
+  useEffect(() => {
+    if (modalShownThisSession) return;
+
+    const timer = setTimeout(() => {
+      openModal();
+    }, 30000); // 30 seconds
+
+    return () => clearTimeout(timer);
+  }, [modalShownThisSession, openModal]);
 
   const navLinks = [
     { name: 'Services', href: '#services' },
@@ -88,6 +148,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-dark">
+      {/* Lead Capture Modal */}
+      <LeadCaptureModal isOpen={isModalOpen} onClose={closeModal} />
+
       {/* Sticky Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-dark/80 backdrop-blur-md border-b border-gray-dark/30">
         <div className="max-w-7xl mx-auto px-6 py-2">
@@ -112,12 +175,12 @@ export default function Home() {
 
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center gap-3">
-              <a
-                href="#systems"
+              <button
+                onClick={handleIntentClick}
                 className="px-4 py-2 text-sm border border-gold text-gold hover:bg-gold hover:text-dark transition-colors rounded-sm"
               >
                 View Case Systems
-              </a>
+              </button>
               <a
                 href="#contact"
                 className="px-4 py-2 text-sm bg-gold text-dark font-medium hover:bg-gold-light transition-colors rounded-sm"
@@ -201,14 +264,14 @@ export default function Home() {
                 No more missed leads. No more dropped calls. Every customer interaction captured, followed up, and converted into lasting relationships and revenue.
               </p>
 
-              {/* CTAs */}
+              {/* CTAs - Intent triggers */}
               <div className="flex flex-wrap gap-4 mb-8">
-                <a
-                  href="#systems"
+                <button
+                  onClick={handleIntentClick}
                   className="px-6 py-3 bg-dark-light border border-gray-dark/50 text-white hover:border-gold transition-colors rounded-sm"
                 >
                   Explore Architecture
-                </a>
+                </button>
                 <a
                   href="#services"
                   className="px-6 py-3 border border-gray-dark/30 text-gray-muted hover:text-white hover:border-gray-muted transition-colors rounded-sm"
@@ -265,16 +328,14 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons - Intent trigger for AIVA */}
               <div className="grid grid-cols-2 gap-3 mb-6">
-                <a
-                  href="https://connectaiva.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={handleIntentClick}
                   className="px-4 py-3 bg-gold text-dark font-medium text-center rounded-sm hover:bg-gold-light transition-colors"
                 >
                   View AIVA Connect
-                </a>
+                </button>
                 <a
                   href="#contact"
                   className="px-4 py-3 border border-gray-dark/30 text-white text-center rounded-sm hover:border-gold transition-colors"
