@@ -11,7 +11,6 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalShownThisSession, setModalShownThisSession] = useState(false);
 
-  // Check if modal was already shown this session
   useEffect(() => {
     const shown = sessionStorage.getItem(MODAL_SHOWN_KEY);
     if (shown === 'true') {
@@ -19,7 +18,6 @@ export default function Home() {
     }
   }, []);
 
-  // Open modal and mark as shown
   const openModal = useCallback(() => {
     if (!modalShownThisSession) {
       setIsModalOpen(true);
@@ -28,21 +26,17 @@ export default function Home() {
     }
   }, [modalShownThisSession]);
 
-  // Close modal
   const closeModal = useCallback(() => {
     setIsModalOpen(false);
   }, []);
 
-  // Intent trigger handler (for CTA clicks)
   const handleIntentClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     openModal();
   }, [openModal]);
 
-  // Scroll trigger: 50% of first viewport
   useEffect(() => {
     if (modalShownThisSession) return;
-
     const handleScroll = () => {
       const scrollThreshold = window.innerHeight * 0.5;
       if (window.scrollY >= scrollThreshold) {
@@ -50,117 +44,143 @@ export default function Home() {
         window.removeEventListener('scroll', handleScroll);
       }
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [modalShownThisSession, openModal]);
 
-  // Time trigger: 30 seconds
   useEffect(() => {
     if (modalShownThisSession) return;
-
     const timer = setTimeout(() => {
       openModal();
-    }, 30000); // 30 seconds
-
+    }, 30000);
     return () => clearTimeout(timer);
   }, [modalShownThisSession, openModal]);
 
   const navLinks = [
-    { name: 'Services', href: '#services' },
-    { name: 'Products', href: '#aiva' },
-    { name: 'Case Systems', href: '#systems' },
-    { name: 'Process', href: '#process' },
+    { name: 'Technology', href: '#technology' },
+    { name: 'Solutions', href: '#solutions' },
+    { name: 'Industries', href: '#industries' },
+    { name: 'Proof', href: '#proof' },
     { name: 'Contact', href: '#contact' },
   ];
 
   const aiStackFeatures = [
-    { name: 'Inbound Calls', status: 'Qualify', color: 'bg-gold' },
-    { name: 'Spam Filtering', status: 'Block', color: 'bg-gold' },
-    { name: 'Warm Transfer', status: 'Human', color: 'bg-gold' },
-    { name: 'Scheduling', status: 'Confirm', color: 'bg-gold' },
-    { name: 'Dashboard', status: 'Track', color: 'bg-gold' },
+    { name: 'Decision Authority', status: 'AI Decides', color: 'bg-gold' },
+    { name: 'Escalation Control', status: 'Filter', color: 'bg-gold' },
+    { name: 'Live Validation', status: 'Confirm', color: 'bg-gold' },
+    { name: 'Data Persistence', status: 'Verified', color: 'bg-gold' },
+    { name: 'Audit Trail', status: 'Complete', color: 'bg-gold' },
   ];
 
-  const tags = ['Voice Agents', 'Automation', 'Dashboards', 'SaaS Platforms'];
+  const tags = ['Decision Systems', 'Voice AI', 'Workflow Automation', 'Enterprise Integration'];
 
-  const demos = [
+  const industries = [
     {
-      title: 'AIVA',
-      tag: 'AI Decision Platform',
-      description: 'Voice and decision systems managing inbound demand, filtering noise, and routing high-value interactions automatically.',
+      title: 'Real Estate',
+      description: 'AI agents that qualify buyers, schedule showings, and never miss a lead.',
+      link: 'https://realestatedemo.chatmaninc.com',
+    },
+    {
+      title: 'Insurance',
+      description: 'Intelligent intake, claims routing, and policy support without hold times.',
+      link: 'https://insurancedemo.chatmaninc.com',
+    },
+    {
+      title: 'Home Services',
+      description: 'Contractors and service pros: capture every job request, dispatch smarter.',
+      link: 'https://houstontexaspro.com',
+    },
+    {
+      title: 'Healthcare',
+      description: 'Patient scheduling, triage routing, and HIPAA-aware communication.',
+      link: '#contact',
+    },
+    {
+      title: 'Legal',
+      description: 'Client intake, consultation booking, and case qualification on autopilot.',
+      link: '#contact',
+    },
+    {
+      title: 'Childcare',
+      description: 'Parent inquiries, enrollment tracking, and waitlist management simplified.',
+      link: '#contact',
+    },
+  ];
+
+  const caseStudies = [
+    {
+      title: 'AIVA Connect',
+      tag: 'Decision Platform',
+      description: 'Voice AI with autonomous decision authority. Qualifies leads, blocks spam, routes only high-value calls to humans.',
       link: 'https://connectaiva.com',
     },
     {
       title: 'Real Estate Platform',
-      tag: 'AI Architecture',
-      description: 'End-to-end property platform with AI-powered lead routing, automated scheduling, and intelligent chat.',
+      tag: 'Lead Operations',
+      description: 'End-to-end property platform with AI-powered routing, automated scheduling, and live data validation.',
       link: 'https://realestatedemo.chatmaninc.com',
     },
     {
       title: 'Insurance Operations',
-      tag: 'AI Architecture',
+      tag: 'Claims & Policy',
       description: 'Intelligent policy management with AI decision support and automated claims routing.',
       link: 'https://insurancedemo.chatmaninc.com',
     },
     {
       title: 'Houston Texas Pro',
-      tag: 'Directory Platform',
-      description: 'Scalable contractor marketplace with intelligent matching and automated lead distribution.',
+      tag: 'Contractor Marketplace',
+      description: 'Scalable directory with intelligent matching and automated lead distribution.',
       link: 'https://houstontexaspro.com',
     },
     {
-      title: '30 Day Faith',
-      tag: 'Digital Strategy',
-      description: 'Go-to-market strategy with automated fulfillment and conversion-optimized funnels.',
-      link: 'https://30dayfaith.chatmaninc.com',
-    },
-    {
       title: 'Security Operations',
-      tag: 'Operations Optimization',
+      tag: 'Enterprise Systems',
       description: 'Operational systems for safety, compliance, and service delivery across enterprise clients.',
       link: 'https://securitydemo.chatmaninc.com',
+    },
+    {
+      title: '30 Day Faith',
+      tag: 'Digital Fulfillment',
+      description: 'Go-to-market strategy with automated fulfillment and conversion-optimized funnels.',
+      link: 'https://30dayfaith.chatmaninc.com',
     },
   ];
 
   const processSteps = [
     {
       number: '01',
-      title: 'Discover',
-      description: 'Map performance bottlenecks and decision points across your operations',
+      title: 'Audit',
+      description: 'Map your decision points, bottlenecks, and missed revenue opportunities',
     },
     {
       number: '02',
-      title: 'Design',
-      description: 'Architect intelligent systems with strategic AI integration',
+      title: 'Architect',
+      description: 'Design AI systems with decision authority, validation layers, and compliance',
     },
     {
       number: '03',
       title: 'Deploy',
-      description: 'Build and launch reliable, scalable solutions',
+      description: 'Build and launch production-grade systems with monitoring and audit trails',
     },
     {
       number: '04',
       title: 'Optimize',
-      description: 'Continuous improvement and system refinement',
+      description: 'Continuous refinement based on real operational data and outcomes',
     },
   ];
 
   return (
     <div className="min-h-screen bg-dark">
-      {/* Lead Capture Modal */}
       <LeadCaptureModal isOpen={isModalOpen} onClose={closeModal} />
 
-      {/* Sticky Header */}
+      {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-dark/80 backdrop-blur-md border-b border-gray-dark/30">
         <div className="max-w-7xl mx-auto px-6 py-2">
           <div className="flex items-center justify-between">
-            {/* Logo */}
             <a href="#" className="flex items-center gap-3">
               <img src="/logo.png" alt="Chatman Inc" className="h-28 w-auto" />
             </a>
 
-            {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <a
@@ -173,23 +193,21 @@ export default function Home() {
               ))}
             </nav>
 
-            {/* CTA Buttons */}
             <div className="hidden md:flex items-center gap-3">
-              <button
-                onClick={handleIntentClick}
+              <a
+                href="#industries"
                 className="px-4 py-2 text-sm border border-gold text-gold hover:bg-gold hover:text-dark transition-colors rounded-sm"
               >
-                View Case Systems
-              </button>
-              <a
-                href="#contact"
+                See Industry Demos
+              </a>
+              <button
+                onClick={handleIntentClick}
                 className="px-4 py-2 text-sm bg-gold text-dark font-medium hover:bg-gold-light transition-colors rounded-sm"
               >
-                Book a Strategy Call
-              </a>
+                Request a Demo
+              </button>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               className="md:hidden text-white"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -204,7 +222,6 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Mobile Menu */}
           {mobileMenuOpen && (
             <nav className="md:hidden mt-4 pb-4 border-t border-gray-dark/30 pt-4">
               <div className="flex flex-col gap-4">
@@ -218,21 +235,20 @@ export default function Home() {
                     {link.name}
                   </a>
                 ))}
-                <a
-                  href="#contact"
+                <button
+                  onClick={handleIntentClick}
                   className="px-4 py-2 bg-gold text-dark font-medium rounded-sm text-center"
                 >
-                  Book a Strategy Call
-                </a>
+                  Request a Demo
+                </button>
               </div>
             </nav>
           )}
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* HERO SECTION - Decision Authority Narrative */}
       <section className="pt-40 pb-20 px-6 relative hero-grid">
-        {/* Subtle architectural lines */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/10 to-transparent"></div>
           <div className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/10 to-transparent"></div>
@@ -242,45 +258,39 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Left Content */}
             <div>
-              {/* Status Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-dark-light rounded-full border border-gray-dark/30 mb-8">
-                <span className="w-2 h-2 bg-green rounded-full animate-pulse"></span>
-                <span className="text-sm text-gray-muted">Building AI that runs operations — not just demos</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-dark-light rounded-full border border-gold/30 mb-8">
+                <span className="w-2 h-2 bg-gold rounded-full animate-pulse"></span>
+                <span className="text-sm text-gold">Patent-Pending AI Architecture</span>
               </div>
 
-              {/* Headline */}
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-tight mb-6">
-                Complexity into<br />operational <span className="text-gold italic">leverage</span>.
+                AI that decides who<br />deserves your <span className="text-gold italic">attention</span>.
               </h1>
 
-              {/* Description */}
               <p className="text-lg text-gray-muted mb-4 max-w-xl">
-                We partner with founders, executives, and business owners to architect AI-powered systems that reduce friction, accelerate decision-making, and create predictable, profitable growth.
+                We architect decision-grade AI systems for calls, workflows, and operations. Not chatbots. Not demos. Production systems that decide, act, and orchestrate.
               </p>
 
               <p className="text-sm text-gold italic mb-8 max-w-xl">
-                No more missed leads. No more dropped calls. Every customer interaction captured, followed up, and converted into lasting relationships and revenue.
+                Missed calls recovered. Qualified leads routed. Compliance maintained. Every interaction captured with confidence-verified data.
               </p>
 
-              {/* CTAs - Intent triggers */}
               <div className="flex flex-wrap gap-4 mb-8">
                 <button
                   onClick={handleIntentClick}
-                  className="px-6 py-3 bg-dark-light border border-gray-dark/50 text-white hover:border-gold transition-colors rounded-sm"
+                  className="px-6 py-3 bg-gold text-dark font-medium hover:bg-gold-light transition-colors rounded-sm"
                 >
-                  Explore Architecture
+                  Request a Demo
                 </button>
                 <a
-                  href="#services"
-                  className="px-6 py-3 border border-gray-dark/30 text-gray-muted hover:text-white hover:border-gray-muted transition-colors rounded-sm"
+                  href="#industries"
+                  className="px-6 py-3 border border-gray-dark/50 text-white hover:border-gold transition-colors rounded-sm"
                 >
-                  View Capabilities
+                  See Industry Demos
                 </a>
               </div>
 
-              {/* Tags */}
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
                   <span
@@ -293,19 +303,17 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Content - AI Stack Panel */}
             <div className="bg-dark-card border border-gray-dark/30 rounded-lg p-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <p className="text-xs text-gray-muted uppercase tracking-wider">Live Preview</p>
-                  <p className="text-lg font-semibold text-white">Operational AI Stack</p>
+                  <p className="text-lg font-semibold text-white">Autonomous Decision Stack</p>
                 </div>
-                <span className="px-3 py-1 text-xs bg-green/20 text-green border border-green/30 rounded-full">
-                  Production-ready
+                <span className="px-3 py-1 text-xs bg-gold/20 text-gold border border-gold/30 rounded-full">
+                  Patent Pending
                 </span>
               </div>
 
-              {/* Feature List */}
               <div className="space-y-3 mb-6">
                 {aiStackFeatures.map((feature) => (
                   <div
@@ -320,43 +328,42 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Narrative */}
-              <div className="bg-dark-light p-4 rounded-sm mb-6 border border-gray-dark/20">
-                <p className="text-xs text-gray-muted uppercase tracking-wider mb-2">Narrative</p>
-                <p className="text-sm text-gray italic">
-                  &quot;AIVA doesn&apos;t just answer calls — it decides who deserves you.&quot;
+              <div className="bg-dark-light p-4 rounded-sm mb-6 border border-gold/20">
+                <p className="text-xs text-gold uppercase tracking-wider mb-2">Core Principle</p>
+                <p className="text-sm text-white italic">
+                  &quot;AI doesn&apos;t just answer calls — it has authority to decide who reaches you.&quot;
                 </p>
               </div>
 
-              {/* Action Buttons - Intent trigger for AIVA */}
               <div className="grid grid-cols-2 gap-3 mb-6">
                 <button
                   onClick={handleIntentClick}
                   className="px-4 py-3 bg-gold text-dark font-medium text-center rounded-sm hover:bg-gold-light transition-colors"
                 >
-                  View AIVA Connect
+                  Book Systems Audit
                 </button>
                 <a
-                  href="#contact"
+                  href="https://connectaiva.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-4 py-3 border border-gray-dark/30 text-white text-center rounded-sm hover:border-gold transition-colors"
                 >
-                  Talk to Us
+                  View AIVA
                 </a>
               </div>
 
-              {/* Stats */}
               <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-dark/20">
                 <div className="text-center">
                   <p className="text-xl font-semibold text-white">24/7</p>
                   <p className="text-xs text-gray-muted">Coverage</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-xl font-semibold text-white">Human</p>
-                  <p className="text-xs text-gray-muted">Only Routing</p>
+                  <p className="text-xl font-semibold text-white">100%</p>
+                  <p className="text-xs text-gray-muted">Audit Trail</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-xl font-semibold text-white">Audits</p>
-                  <p className="text-xs text-gray-muted">Logs</p>
+                  <p className="text-xl font-semibold text-white">Live</p>
+                  <p className="text-xs text-gray-muted">Validation</p>
                 </div>
               </div>
             </div>
@@ -370,185 +377,78 @@ export default function Home() {
         <div className="absolute left-1/2 top-0 -translate-x-1/2 w-2 h-2 bg-gold/50 rounded-full"></div>
       </div>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 px-6 bg-dark-light relative dot-grid">
+      {/* OUR CORE IP APPROACH */}
+      <section id="technology" className="py-20 px-6 bg-dark-light relative dot-grid">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
+            <span className="inline-block px-3 py-1 text-xs bg-gold/20 text-gold border border-gold/30 rounded-full mb-4">
+              Patent-Pending Technology
+            </span>
             <h2 className="text-3xl md:text-5xl font-serif mb-4 text-white">
-              Our Capabilities
+              Our Core IP Approach
             </h2>
             <p className="text-gray-muted text-lg max-w-2xl mx-auto">
-              Not automation. Not dashboards. Intelligent systems that drive real outcomes.
+              Three foundational innovations that power decision-grade AI systems.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: 'Transform Decision-Making',
-                description: 'AI-driven decision systems that accelerate outcomes and reduce cognitive load.',
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                ),
-              },
-              {
-                title: 'Optimize Workflows',
-                description: 'Scalable process design eliminating handoff delays and bottlenecks.',
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                ),
-              },
-              {
-                title: 'Reduce Friction',
-                description: 'Custom intelligent platforms and internal tools that just work.',
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                ),
-              },
-              {
-                title: 'Scale Reliably',
-                description: 'Data-informed strategy for sustainable, predictable expansion.',
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                ),
-              },
-            ].map((service, index) => (
-              <div
-                key={index}
-                className="bg-dark p-6 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group"
-              >
-                <div className="text-gold mb-4">{service.icon}</div>
-                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-gold transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-gray-muted text-sm">{service.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* AIVA Connect Spotlight */}
-      <section id="aiva" className="py-20 px-6 bg-dark">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="inline-block px-3 py-1 text-xs bg-gold/20 text-gold border border-gold/30 rounded-full mb-4">
-                Featured Product
-              </span>
-              <h2 className="text-3xl md:text-5xl font-serif mb-6 text-white">
-                AIVA Connect
-              </h2>
-              <p className="text-lg text-gray-muted mb-8">
-                AI-powered voice reception that qualifies leads, blocks spam, and routes only the calls that matter. Your always-on receptionist that never sleeps.
-              </p>
-
-              <div className="space-y-4 mb-8">
-                {[
-                  'AI-powered voice reception',
-                  'Intelligent call routing and filtering',
-                  'Lead qualification and scheduling',
-                  'CRM integration and logging',
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <span className="w-5 h-5 bg-gold/20 rounded-full flex items-center justify-center">
-                      <span className="w-2 h-2 bg-gold rounded-full"></span>
-                    </span>
-                    <span className="text-gray">{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              <a
-                href="https://connectaiva.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gold text-dark font-medium rounded-sm hover:bg-gold-light transition-colors"
-              >
-                Explore AIVA Connect
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-dark p-8 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group">
+              <div className="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center mb-6">
+                <svg className="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
-              </a>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-gold transition-colors">
+                Decision Authority Layer
+              </h3>
+              <p className="text-gray-muted text-sm mb-4">
+                AI is granted autonomous authority to determine whether a human is engaged. Not &quot;AI answers calls&quot; — AI decides who deserves human attention.
+              </p>
+              <p className="text-xs text-gold italic">
+                Including authority to permanently withhold escalation.
+              </p>
             </div>
 
-            <div className="bg-dark-card border border-gray-dark/30 rounded-lg overflow-hidden">
-              <img
-                src="/aiva-mockup.png"
-                alt="AIVA Connect Dashboard"
-                className="w-full h-auto"
-              />
+            <div className="bg-dark p-8 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group">
+              <div className="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center mb-6">
+                <svg className="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-gold transition-colors">
+                Conversational Validation Layer
+              </h3>
+              <p className="text-gray-muted text-sm mb-4">
+                Real-time extraction with conversational confirmation and field-level confidence scoring before data persistence.
+              </p>
+              <p className="text-xs text-gold italic">
+                Confirm before saving. Confidence-gated persistence.
+              </p>
+            </div>
+
+            <div className="bg-dark p-8 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group">
+              <div className="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center mb-6">
+                <svg className="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-gold transition-colors">
+                Vertical Agent Framework
+              </h3>
+              <p className="text-gray-muted text-sm mb-4">
+                Modular agent framework that dynamically loads industry-specific compliance, vocabulary, workflows, and decision thresholds at runtime.
+              </p>
+              <p className="text-xs text-gold italic">
+                One core architecture. Many industries. Runtime switching.
+              </p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Section Divider */}
-      <div className="relative h-16 bg-dark">
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 w-px h-full bg-gradient-to-b from-gold/30 to-transparent"></div>
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 w-2 h-2 bg-gold/50 rounded-full"></div>
-      </div>
-
-      {/* Real Estate Platform Spotlight */}
-      <section id="realestate" className="py-20 px-6 bg-dark-light">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="bg-dark-card border border-gray-dark/30 rounded-lg overflow-hidden lg:order-1">
-              <img
-                src="/realestate-mockup.png"
-                alt="Real Estate Platform Dashboard"
-                className="w-full h-auto"
-              />
-            </div>
-
-            <div className="lg:order-2">
-              <span className="inline-block px-3 py-1 text-xs bg-gold/20 text-gold border border-gold/30 rounded-full mb-4">
-                Featured Platform
-              </span>
-              <h2 className="text-3xl md:text-5xl font-serif mb-6 text-white">
-                Real Estate Platform
-              </h2>
-              <p className="text-lg text-gray-muted mb-8">
-                End-to-end property platform with AI-powered lead routing, automated scheduling, and intelligent chat. Transform how you manage listings, clients, and transactions.
-              </p>
-
-              <div className="space-y-4 mb-8">
-                {[
-                  'AI-powered lead routing and qualification',
-                  'Automated scheduling and follow-ups',
-                  'Intelligent chat and client communication',
-                  'Property management dashboard',
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <span className="w-5 h-5 bg-gold/20 rounded-full flex items-center justify-center">
-                      <span className="w-2 h-2 bg-gold rounded-full"></span>
-                    </span>
-                    <span className="text-gray">{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              <a
-                href="https://realestatedemo.chatmaninc.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gold text-dark font-medium rounded-sm hover:bg-gold-light transition-colors"
-              >
-                View Demo
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </a>
-            </div>
+          <div className="mt-12 text-center">
+            <p className="text-sm text-gray-muted">
+              Three U.S. Utility Provisional Patents filed. Foundation for a continuation patent family.
+            </p>
           </div>
         </div>
       </section>
@@ -559,56 +459,119 @@ export default function Home() {
         <div className="absolute left-1/2 top-0 -translate-x-1/2 w-2 h-2 bg-gold/50 rounded-full"></div>
       </div>
 
-      {/* Insurance Platform Spotlight */}
-      <section id="insurance" className="py-20 px-6 bg-dark">
+      {/* WHAT WE BUILD */}
+      <section id="solutions" className="py-20 px-6 bg-dark">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="inline-block px-3 py-1 text-xs bg-gold/20 text-gold border border-gold/30 rounded-full mb-4">
-                Featured Platform
-              </span>
-              <h2 className="text-3xl md:text-5xl font-serif mb-6 text-white">
-                Insurance Platform
-              </h2>
-              <p className="text-lg text-gray-muted mb-8">
-                Intelligent policy management with AI decision support and automated claims routing. Streamline operations and improve customer experience across the insurance lifecycle.
-              </p>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-serif mb-4 text-white">
+              What We Build
+            </h2>
+            <p className="text-gray-muted text-lg max-w-2xl mx-auto">
+              Architecture + Implementation. Systems that decide, act, and orchestrate.
+            </p>
+          </div>
 
-              <div className="space-y-4 mb-8">
-                {[
-                  'AI-powered claims routing and triage',
-                  'Intelligent policy management',
-                  'Automated underwriting support',
-                  'Customer portal and self-service',
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <span className="w-5 h-5 bg-gold/20 rounded-full flex items-center justify-center">
-                      <span className="w-2 h-2 bg-gold rounded-full"></span>
-                    </span>
-                    <span className="text-gray">{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              <a
-                href="https://insurancedemo.chatmaninc.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gold text-dark font-medium rounded-sm hover:bg-gold-light transition-colors"
-              >
-                View Demo
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-dark-card p-6 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group">
+              <div className="text-gold mb-4">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-              </a>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-gold transition-colors">
+                AI Voice Agents
+              </h3>
+              <p className="text-gray-muted text-sm">
+                Conversational AI with decision authority. Inbound reception, lead qualification, appointment booking.
+              </p>
             </div>
 
-            <div className="bg-dark-card border border-gray-dark/30 rounded-lg overflow-hidden">
-              <img
-                src="/insurance-mockup.png"
-                alt="Insurance Platform Dashboard"
-                className="w-full h-auto"
-              />
+            <div className="bg-dark-card p-6 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group">
+              <div className="text-gold mb-4">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-gold transition-colors">
+                Automation + Orchestration
+              </h3>
+              <p className="text-gray-muted text-sm">
+                Workflow automation, ticketing systems, CRM integration, and multi-channel orchestration.
+              </p>
+            </div>
+
+            <div className="bg-dark-card p-6 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group">
+              <div className="text-gold mb-4">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-gold transition-colors">
+                Data Systems
+              </h3>
+              <p className="text-gray-muted text-sm">
+                Database architecture, real-time dashboards, lead capture, and analytics with audit trails.
+              </p>
+            </div>
+
+            <div className="bg-dark-card p-6 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group">
+              <div className="text-gold mb-4">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-gold transition-colors">
+                Custom Software
+              </h3>
+              <p className="text-gray-muted text-sm">
+                Full-stack applications, internal tools, client portals, and production-grade systems.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 grid md:grid-cols-2 gap-8">
+            <div className="bg-dark-card p-8 rounded-lg border border-gold/30">
+              <h4 className="text-lg font-semibold text-gold mb-4">AI Operations Design</h4>
+              <ul className="space-y-3 text-gray-muted text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2"></span>
+                  <span>Decision authority mapping and escalation policies</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2"></span>
+                  <span>Monitoring dashboards and real-time alerting</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2"></span>
+                  <span>Audit logs and compliance documentation</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2"></span>
+                  <span>Human-AI handoff protocols</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-dark-card p-8 rounded-lg border border-gray-dark/30">
+              <h4 className="text-lg font-semibold text-white mb-4">Enterprise Integration</h4>
+              <ul className="space-y-3 text-gray-muted text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-gray-muted rounded-full mt-2"></span>
+                  <span>CRM systems (Salesforce, HubSpot, custom)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-gray-muted rounded-full mt-2"></span>
+                  <span>Calendar and scheduling platforms</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-gray-muted rounded-full mt-2"></span>
+                  <span>Phone systems and VoIP providers</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-gray-muted rounded-full mt-2"></span>
+                  <span>Payment processors and billing systems</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -620,33 +583,76 @@ export default function Home() {
         <div className="absolute left-1/2 top-0 -translate-x-1/2 w-2 h-2 bg-gold/50 rounded-full"></div>
       </div>
 
-      {/* Case Systems Section */}
-      <section id="systems" className="py-20 px-6 bg-dark-light">
+      {/* INDUSTRIES */}
+      <section id="industries" className="py-20 px-6 bg-dark-light">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-serif mb-4 text-white">
-              Proof of Architectural Execution
+              Industries We Serve
             </h2>
             <p className="text-gray-muted text-lg max-w-2xl mx-auto">
-              Real systems we&apos;ve built. Real results delivered.
+              Vertical-specific AI agents with industry compliance, vocabulary, and workflows built in.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {demos.map((demo, index) => (
+            {industries.map((industry, index) => (
+              <a
+                key={index}
+                href={industry.link}
+                target={industry.link.startsWith('http') ? '_blank' : undefined}
+                rel={industry.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="bg-dark p-6 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group block"
+              >
+                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-gold transition-colors">
+                  {industry.title}
+                </h3>
+                <p className="text-gray-muted text-sm mb-4">{industry.description}</p>
+                <span className="inline-flex items-center gap-2 text-sm text-gold">
+                  {industry.link.startsWith('http') ? 'View Demo' : 'Contact Us'}
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Divider */}
+      <div className="relative h-16 bg-dark-light">
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 w-px h-full bg-gradient-to-b from-gold/30 to-transparent"></div>
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 w-2 h-2 bg-gold/50 rounded-full"></div>
+      </div>
+
+      {/* PROOF / CASE STUDIES */}
+      <section id="proof" className="py-20 px-6 bg-dark">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-serif mb-4 text-white">
+              Proof of Execution
+            </h2>
+            <p className="text-gray-muted text-lg max-w-2xl mx-auto">
+              Real systems. Real results. Production-grade architecture.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {caseStudies.map((study, index) => (
               <div
                 key={index}
-                className="bg-dark p-6 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group"
+                className="bg-dark-card p-6 rounded-lg border border-gray-dark/30 hover:border-gold/50 transition-all group"
               >
                 <span className="inline-block px-2 py-1 text-xs bg-gold/20 text-gold rounded mb-4">
-                  {demo.tag}
+                  {study.tag}
                 </span>
                 <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-gold transition-colors">
-                  {demo.title}
+                  {study.title}
                 </h3>
-                <p className="text-gray-muted text-sm mb-4">{demo.description}</p>
+                <p className="text-gray-muted text-sm mb-4">{study.description}</p>
                 <a
-                  href={demo.link}
+                  href={study.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm text-gold hover:text-gold-light transition-colors"
@@ -663,14 +669,53 @@ export default function Home() {
       </section>
 
       {/* Section Divider */}
+      <div className="relative h-16 bg-dark">
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 w-px h-full bg-gradient-to-b from-gold/30 to-transparent"></div>
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 w-2 h-2 bg-gold/50 rounded-full"></div>
+      </div>
+
+      {/* FOUNDER CREDIBILITY */}
+      <section className="py-20 px-6 bg-dark-light">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-dark p-8 md:p-12 rounded-lg border border-gray-dark/30">
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              <div className="w-24 h-24 bg-gold/20 rounded-lg flex-shrink-0 flex items-center justify-center">
+                <span className="text-3xl font-serif text-gold">HC</span>
+              </div>
+              <div>
+                <h3 className="text-2xl font-serif text-white mb-2">Howard Leon Chatman III</h3>
+                <p className="text-gold text-sm mb-4">Founder & Chief Architect</p>
+                <p className="text-gray-muted mb-6">
+                  Builder of operational systems. Not theoretical AI — production systems that run businesses.
+                </p>
+                <div className="space-y-3 text-sm text-gray">
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2 flex-shrink-0"></span>
+                    <span>Built and operated Chatman Security & Fire since 2009 — a million-dollar fire and security company</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2 flex-shrink-0"></span>
+                    <span>Enterprise experience: Walmart, HEB, Dillard&apos;s, ADT, Protection One, Stanley Security</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2 flex-shrink-0"></span>
+                    <span>Now building AI systems, demos, and productized solutions for operational scale</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Divider */}
       <div className="relative h-16 bg-dark-light">
         <div className="absolute left-1/2 top-0 -translate-x-1/2 w-px h-full bg-gradient-to-b from-gold/30 to-transparent"></div>
         <div className="absolute left-1/2 top-0 -translate-x-1/2 w-2 h-2 bg-gold/50 rounded-full"></div>
       </div>
 
-      {/* Process Section */}
-      <section id="process" className="py-20 px-6 bg-dark relative">
-        {/* Subtle connector lines between process steps */}
+      {/* PROCESS */}
+      <section className="py-20 px-6 bg-dark relative">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/5 to-transparent"></div>
         </div>
@@ -680,13 +725,11 @@ export default function Home() {
               Our Process
             </h2>
             <p className="text-gray-muted text-lg max-w-2xl mx-auto">
-              We start with the architecture, not the tools.
+              Architecture first. Implementation second. Results always.
             </p>
           </div>
 
-          {/* Process Steps with Connecting Lines */}
           <div className="relative">
-            {/* Horizontal connector line (desktop) */}
             <div className="hidden lg:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-gold/20 via-gold/40 to-gold/20"></div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -695,14 +738,10 @@ export default function Home() {
                   key={index}
                   className="bg-dark-card p-6 rounded-lg border border-gray-dark/30 text-center relative"
                 >
-                  {/* Node connector */}
                   <div className="hidden lg:block absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-dark-card border-2 border-gold/50 rounded-full"></div>
-
                   <div className="text-4xl font-serif text-gold mb-4">{step.number}</div>
                   <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
                   <p className="text-gray-muted text-sm">{step.description}</p>
-
-                  {/* Arrow to next step (desktop) */}
                   {index < processSteps.length - 1 && (
                     <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-6 text-gold/30">
                       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -723,15 +762,15 @@ export default function Home() {
         <div className="absolute left-1/2 top-0 -translate-x-1/2 w-2 h-2 bg-gold/50 rounded-full"></div>
       </div>
 
-      {/* Contact Section */}
+      {/* CONTACT */}
       <section id="contact" className="py-20 px-6 bg-dark-light relative dot-grid">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-serif mb-4 text-white">
-              Start a Project
+              Start Your Systems Audit
             </h2>
             <p className="text-gray-muted text-lg">
-              Let&apos;s discuss how AI can transform your operations.
+              Let&apos;s map your decision points and identify where AI creates leverage.
             </p>
           </div>
 
@@ -740,79 +779,150 @@ export default function Home() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm text-gray-muted mb-2">
-                    Your Name *
+                    Name *
                   </label>
                   <input
                     type="text"
                     id="name"
                     required
                     className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
-                    placeholder="John Smith"
+                    placeholder="Your name"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm text-gray-muted mb-2">
-                    Email Address *
+                  <label htmlFor="company" className="block text-sm text-gray-muted mb-2">
+                    Company *
                   </label>
                   <input
-                    type="email"
-                    id="email"
+                    type="text"
+                    id="company"
                     required
                     className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
-                    placeholder="john@company.com"
+                    placeholder="Your company"
                   />
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="company" className="block text-sm text-gray-muted mb-2">
-                    Company
+                  <label htmlFor="email" className="block text-sm text-gray-muted mb-2">
+                    Email *
                   </label>
                   <input
-                    type="text"
-                    id="company"
+                    type="email"
+                    id="email"
+                    required
                     className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
-                    placeholder="Your Company Inc."
+                    placeholder="you@company.com"
                   />
                 </div>
                 <div>
                   <label htmlFor="phone" className="block text-sm text-gray-muted mb-2">
-                    Phone
+                    Phone *
                   </label>
                   <input
                     type="tel"
                     id="phone"
+                    required
                     className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
                     placeholder="(555) 123-4567"
                   />
                 </div>
               </div>
 
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="industry" className="block text-sm text-gray-muted mb-2">
+                    Industry *
+                  </label>
+                  <select
+                    id="industry"
+                    required
+                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                  >
+                    <option value="">Select industry</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Insurance">Insurance</option>
+                    <option value="Home Services">Home Services / Contractors</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Legal">Legal</option>
+                    <option value="Childcare">Childcare / Education</option>
+                    <option value="Financial Services">Financial Services</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="urgency" className="block text-sm text-gray-muted mb-2">
+                    Timeline
+                  </label>
+                  <select
+                    id="urgency"
+                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                  >
+                    <option value="">Select timeline</option>
+                    <option value="immediate">Immediate (this month)</option>
+                    <option value="quarter">This quarter</option>
+                    <option value="planning">Planning phase</option>
+                    <option value="exploring">Just exploring</option>
+                  </select>
+                </div>
+              </div>
+
               <div>
                 <label htmlFor="goal" className="block text-sm text-gray-muted mb-2">
-                  What are you looking to achieve? *
+                  Primary Goal *
                 </label>
-                <textarea
+                <select
                   id="goal"
-                  rows={4}
                   required
-                  className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors resize-none"
-                  placeholder="Tell us about your operational challenges and goals..."
-                ></textarea>
+                  className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                >
+                  <option value="">What&apos;s your primary goal?</option>
+                  <option value="qualify_leads">Qualify leads automatically</option>
+                  <option value="reduce_missed_calls">Reduce missed calls</option>
+                  <option value="automate_scheduling">Automate scheduling</option>
+                  <option value="automate_intake">Automate intake / onboarding</option>
+                  <option value="workflow_automation">Workflow automation</option>
+                  <option value="custom_system">Custom AI system</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="tools" className="block text-sm text-gray-muted mb-2">
+                  Current Tools (optional)
+                </label>
+                <input
+                  type="text"
+                  id="tools"
+                  className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                  placeholder="CRM, phone system, scheduling software..."
+                />
+              </div>
+
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="demo"
+                  className="w-5 h-5 mt-0.5 bg-dark-light border border-gray-dark/30 rounded text-gold focus:ring-gold"
+                />
+                <label htmlFor="demo" className="text-sm text-gray-muted">
+                  I want a demo of AIVA Connect or an industry-specific agent
+                </label>
               </div>
 
               <button
                 type="submit"
                 className="w-full px-8 py-4 bg-gold text-dark font-medium rounded-sm hover:bg-gold-light transition-colors"
               >
-                Book a Strategy Call
+                Request Systems Audit
               </button>
             </form>
           </div>
 
           <p className="text-center text-sm text-gray-muted mt-6">
-            Or email us directly at{' '}
+            Or email directly:{' '}
             <a href="mailto:howard@chatmaninc.com" className="text-gold hover:text-gold-light transition-colors">
               howard@chatmaninc.com
             </a>
@@ -837,6 +947,9 @@ export default function Home() {
                 <Link href="/admin" className="hover:text-gold transition-colors">
                   Admin Portal
                 </Link>
+              </p>
+              <p className="mt-2 text-xs text-gray-muted/70">
+                Patent-pending AI systems architecture
               </p>
             </div>
           </div>

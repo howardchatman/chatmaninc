@@ -5,9 +5,13 @@ import { createServerSupabaseClient } from '@/lib/supabase/server';
 export interface LeadFormData {
   name: string;
   email: string;
+  phone?: string;
   company?: string;
   industry?: string;
   goal: string;
+  urgency?: string;
+  currentTools?: string;
+  wantsDemo?: boolean;
 }
 
 export interface SubmitLeadResult {
@@ -16,7 +20,6 @@ export interface SubmitLeadResult {
 }
 
 export async function submitLead(data: LeadFormData): Promise<SubmitLeadResult> {
-  // Validate required fields
   if (!data.name || !data.name.trim()) {
     return { success: false, error: 'Name is required' };
   }
@@ -25,14 +28,13 @@ export async function submitLead(data: LeadFormData): Promise<SubmitLeadResult> 
     return { success: false, error: 'Email is required' };
   }
 
-  // Basic email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(data.email)) {
     return { success: false, error: 'Please enter a valid email address' };
   }
 
   if (!data.goal || !data.goal.trim()) {
-    return { success: false, error: 'Please describe your challenge or goal' };
+    return { success: false, error: 'Please select your primary goal' };
   }
 
   try {
@@ -41,9 +43,13 @@ export async function submitLead(data: LeadFormData): Promise<SubmitLeadResult> 
     const { error } = await supabase.from('chatman_leads').insert({
       name: data.name.trim(),
       email: data.email.trim().toLowerCase(),
+      phone: data.phone?.trim() || null,
       company: data.company?.trim() || null,
       industry: data.industry?.trim() || null,
       goal: data.goal.trim(),
+      urgency: data.urgency?.trim() || null,
+      current_tools: data.currentTools?.trim() || null,
+      wants_demo: data.wantsDemo || false,
       source: 'website_modal',
     });
 
