@@ -702,7 +702,7 @@ export default function Home() {
           {/* Howard */}
           <div className="bg-dark p-8 md:p-12 rounded-lg border border-gray-dark/30">
             <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="w-24 h-24 rounded-lg flex-shrink-0 overflow-hidden">
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-lg flex-shrink-0 overflow-hidden">
                 <img src="/howard_photo.png" alt="Howard Leon Chatman III" className="w-full h-full object-cover" />
               </div>
               <div>
