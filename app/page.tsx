@@ -676,7 +676,8 @@ export default function Home() {
 
       {/* FOUNDER CREDIBILITY */}
       <section className="py-20 px-6 bg-dark-light">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* Howard */}
           <div className="bg-dark p-8 md:p-12 rounded-lg border border-gray-dark/30">
             <div className="flex flex-col md:flex-row gap-8 items-start">
               <div className="w-24 h-24 bg-gold/20 rounded-lg flex-shrink-0 flex items-center justify-center">
@@ -700,6 +701,36 @@ export default function Home() {
                   <div className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2 flex-shrink-0"></span>
                     <span>Now building AI systems, demos, and productized solutions for operational scale</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Ecko */}
+          <div className="bg-dark p-8 md:p-12 rounded-lg border border-gray-dark/30">
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              <div className="w-24 h-24 bg-gold/20 rounded-lg flex-shrink-0 flex items-center justify-center">
+                <span className="text-3xl font-serif text-gold">ES</span>
+              </div>
+              <div>
+                <h3 className="text-2xl font-serif text-white mb-2">Ecko Steadman</h3>
+                <p className="text-gold text-sm mb-4">Co-Founder & Head of Product Growth & Human Experience</p>
+                <p className="text-gray-muted mb-6">
+                  Responsible for product positioning, sales narrative, pricing psychology, demo experience, and go-to-market strategy for an AI-powered follow-up and client experience platform serving estate and industry professionals.
+                </p>
+                <div className="space-y-3 text-sm text-gray">
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2 flex-shrink-0"></span>
+                    <span>Designed identity-based wellness programs integrating education, embodiment, and habit design — coaching 100+ women toward sustainable behavior change</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2 flex-shrink-0"></span>
+                    <span>Led curriculum development, instructional design, and documentation across public education, federal agencies, and community-based programs</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2 flex-shrink-0"></span>
+                    <span>Applied coaching, facilitation, and communication strategy through academic instruction, youth leadership, and athletic coaching — building trust and team cohesion in high-accountability settings</span>
                   </div>
                 </div>
               </div>
