@@ -40,17 +40,24 @@ export async function submitLead(data: LeadFormData): Promise<SubmitLeadResult> 
   try {
     const supabase = createServerSupabaseClient();
 
-    const { error } = await supabase.from('chatman_leads').insert({
+    const notes = [
+      data.goal ? `Goal: ${data.goal.trim()}` : '',
+      data.urgency ? `Timeline: ${data.urgency.trim()}` : '',
+      data.currentTools ? `Current tools: ${data.currentTools.trim()}` : '',
+      data.wantsDemo ? 'Wants demo: Yes' : '',
+    ].filter(Boolean).join(' | ');
+
+    const { error } = await supabase.from('leads').insert({
       name: data.name.trim(),
       email: data.email.trim().toLowerCase(),
       phone: data.phone?.trim() || null,
       company: data.company?.trim() || null,
-      industry: data.industry?.trim() || null,
-      goal: data.goal.trim(),
-      urgency: data.urgency?.trim() || null,
-      current_tools: data.currentTools?.trim() || null,
-      wants_demo: data.wantsDemo || false,
-      source: 'website_modal',
+      status: 'warm',
+      source: 'website_form',
+      interest: data.industry?.trim() || null,
+      timeline: data.urgency?.trim() || null,
+      notes: notes || null,
+      score: 50,
     });
 
     if (error) {

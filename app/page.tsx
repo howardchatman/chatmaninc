@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import LeadCaptureModal from '@/components/LeadCaptureModal';
+import { submitLead } from '@/app/actions/submitLead';
 
 const MODAL_SHOWN_KEY = 'lead_modal_shown';
 
@@ -10,6 +11,27 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalShownThisSession, setModalShownThisSession] = useState(false);
+  const [contactForm, setContactForm] = useState({
+    name: '', email: '', phone: '', company: '', industry: '', urgency: '', goal: '', currentTools: '', wantsDemo: false,
+  });
+  const [contactStatus, setContactStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactStatus('submitting');
+    const result = await submitLead({
+      name: contactForm.name,
+      email: contactForm.email,
+      phone: contactForm.phone,
+      company: contactForm.company,
+      industry: contactForm.industry,
+      goal: contactForm.goal,
+      urgency: contactForm.urgency,
+      currentTools: contactForm.currentTools,
+      wantsDemo: contactForm.wantsDemo,
+    });
+    setContactStatus(result.success ? 'success' : 'error');
+  };
 
   useEffect(() => {
     const shown = sessionStorage.getItem(MODAL_SHOWN_KEY);
@@ -680,8 +702,8 @@ export default function Home() {
           {/* Howard */}
           <div className="bg-dark p-8 md:p-12 rounded-lg border border-gray-dark/30">
             <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="w-24 h-24 bg-gold/20 rounded-lg flex-shrink-0 flex items-center justify-center">
-                <span className="text-3xl font-serif text-gold">HC</span>
+              <div className="w-24 h-24 rounded-lg flex-shrink-0 overflow-hidden">
+                <img src="/howard_photo.png" alt="Howard Leon Chatman III" className="w-full h-full object-cover" />
               </div>
               <div>
                 <h3 className="text-2xl font-serif text-white mb-2">Howard Leon Chatman III</h3>
@@ -806,29 +828,48 @@ export default function Home() {
           </div>
 
           <div className="bg-dark p-8 md:p-12 rounded-lg border border-gray-dark/30">
-            <form className="space-y-6">
+            {contactStatus === 'success' ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-serif text-white mb-3">Request Received</h3>
+                <p className="text-gray-muted">
+                  We&apos;ll review your submission and reach out within 24-48 hours to discuss your systems audit.
+                </p>
+              </div>
+            ) : (
+            <form onSubmit={handleContactSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm text-gray-muted mb-2">
+                  <label htmlFor="contact-name" className="block text-sm text-gray-muted mb-2">
                     Name *
                   </label>
                   <input
                     type="text"
-                    id="name"
+                    id="contact-name"
                     required
-                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                    value={contactForm.name}
+                    onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))}
+                    disabled={contactStatus === 'submitting'}
+                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors disabled:opacity-50"
                     placeholder="Your name"
                   />
                 </div>
                 <div>
-                  <label htmlFor="company" className="block text-sm text-gray-muted mb-2">
+                  <label htmlFor="contact-company" className="block text-sm text-gray-muted mb-2">
                     Company *
                   </label>
                   <input
                     type="text"
-                    id="company"
+                    id="contact-company"
                     required
-                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                    value={contactForm.company}
+                    onChange={e => setContactForm(f => ({ ...f, company: e.target.value }))}
+                    disabled={contactStatus === 'submitting'}
+                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors disabled:opacity-50"
                     placeholder="Your company"
                   />
                 </div>
@@ -836,26 +877,32 @@ export default function Home() {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="email" className="block text-sm text-gray-muted mb-2">
+                  <label htmlFor="contact-email" className="block text-sm text-gray-muted mb-2">
                     Email *
                   </label>
                   <input
                     type="email"
-                    id="email"
+                    id="contact-email"
                     required
-                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                    value={contactForm.email}
+                    onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))}
+                    disabled={contactStatus === 'submitting'}
+                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors disabled:opacity-50"
                     placeholder="you@company.com"
                   />
                 </div>
                 <div>
-                  <label htmlFor="phone" className="block text-sm text-gray-muted mb-2">
+                  <label htmlFor="contact-phone" className="block text-sm text-gray-muted mb-2">
                     Phone *
                   </label>
                   <input
                     type="tel"
-                    id="phone"
+                    id="contact-phone"
                     required
-                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                    value={contactForm.phone}
+                    onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))}
+                    disabled={contactStatus === 'submitting'}
+                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors disabled:opacity-50"
                     placeholder="(555) 123-4567"
                   />
                 </div>
@@ -863,13 +910,16 @@ export default function Home() {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="industry" className="block text-sm text-gray-muted mb-2">
+                  <label htmlFor="contact-industry" className="block text-sm text-gray-muted mb-2">
                     Industry *
                   </label>
                   <select
-                    id="industry"
+                    id="contact-industry"
                     required
-                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                    value={contactForm.industry}
+                    onChange={e => setContactForm(f => ({ ...f, industry: e.target.value }))}
+                    disabled={contactStatus === 'submitting'}
+                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors disabled:opacity-50"
                   >
                     <option value="">Select industry</option>
                     <option value="Real Estate">Real Estate</option>
@@ -884,12 +934,15 @@ export default function Home() {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="urgency" className="block text-sm text-gray-muted mb-2">
+                  <label htmlFor="contact-urgency" className="block text-sm text-gray-muted mb-2">
                     Timeline
                   </label>
                   <select
-                    id="urgency"
-                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                    id="contact-urgency"
+                    value={contactForm.urgency}
+                    onChange={e => setContactForm(f => ({ ...f, urgency: e.target.value }))}
+                    disabled={contactStatus === 'submitting'}
+                    className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors disabled:opacity-50"
                   >
                     <option value="">Select timeline</option>
                     <option value="immediate">Immediate (this month)</option>
@@ -901,13 +954,16 @@ export default function Home() {
               </div>
 
               <div>
-                <label htmlFor="goal" className="block text-sm text-gray-muted mb-2">
+                <label htmlFor="contact-goal" className="block text-sm text-gray-muted mb-2">
                   Primary Goal *
                 </label>
                 <select
-                  id="goal"
+                  id="contact-goal"
                   required
-                  className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                  value={contactForm.goal}
+                  onChange={e => setContactForm(f => ({ ...f, goal: e.target.value }))}
+                  disabled={contactStatus === 'submitting'}
+                  className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors disabled:opacity-50"
                 >
                   <option value="">What&apos;s your primary goal?</option>
                   <option value="qualify_leads">Qualify leads automatically</option>
@@ -921,13 +977,16 @@ export default function Home() {
               </div>
 
               <div>
-                <label htmlFor="tools" className="block text-sm text-gray-muted mb-2">
+                <label htmlFor="contact-tools" className="block text-sm text-gray-muted mb-2">
                   Current Tools (optional)
                 </label>
                 <input
                   type="text"
-                  id="tools"
-                  className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors"
+                  id="contact-tools"
+                  value={contactForm.currentTools}
+                  onChange={e => setContactForm(f => ({ ...f, currentTools: e.target.value }))}
+                  disabled={contactStatus === 'submitting'}
+                  className="w-full px-4 py-3 bg-dark-light border border-gray-dark/30 rounded-sm text-white focus:border-gold focus:outline-none transition-colors disabled:opacity-50"
                   placeholder="CRM, phone system, scheduling software..."
                 />
               </div>
@@ -935,21 +994,42 @@ export default function Home() {
               <div className="flex items-start gap-3">
                 <input
                   type="checkbox"
-                  id="demo"
-                  className="w-5 h-5 mt-0.5 bg-dark-light border border-gray-dark/30 rounded text-gold focus:ring-gold"
+                  id="contact-demo"
+                  checked={contactForm.wantsDemo}
+                  onChange={e => setContactForm(f => ({ ...f, wantsDemo: e.target.checked }))}
+                  disabled={contactStatus === 'submitting'}
+                  className="w-5 h-5 mt-0.5 bg-dark-light border border-gray-dark/30 rounded text-gold focus:ring-gold disabled:opacity-50"
                 />
-                <label htmlFor="demo" className="text-sm text-gray-muted">
+                <label htmlFor="contact-demo" className="text-sm text-gray-muted">
                   I want a demo of AIVA Connect or an industry-specific agent
                 </label>
               </div>
 
+              {contactStatus === 'error' && (
+                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-sm">
+                  <p className="text-red-400 text-sm">Something went wrong. Please try again.</p>
+                </div>
+              )}
+
               <button
                 type="submit"
-                className="w-full px-8 py-4 bg-gold text-dark font-medium rounded-sm hover:bg-gold-light transition-colors"
+                disabled={contactStatus === 'submitting'}
+                className="w-full px-8 py-4 bg-gold text-dark font-medium rounded-sm hover:bg-gold-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                Request Systems Audit
+                {contactStatus === 'submitting' ? (
+                  <>
+                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Submitting...
+                  </>
+                ) : (
+                  'Request Systems Audit'
+                )}
               </button>
             </form>
+            )}
           </div>
 
           <p className="text-center text-sm text-gray-muted mt-6">
