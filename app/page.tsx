@@ -739,20 +739,20 @@ export default function Home() {
                 <h3 className="text-2xl font-serif text-white mb-2">Ecko Steadman</h3>
                 <p className="text-gold text-sm mb-4">Co-Founder & Head of Product Growth & Human Experience</p>
                 <p className="text-gray-muted mb-6">
-                  Responsible for product positioning, sales narrative, pricing psychology, demo experience, and go-to-market strategy for an AI-powered follow-up and client experience platform serving estate and industry professionals.
+                  Drives product strategy, go-to-market positioning, and AI-powered client experience design. Translates complex operational systems into narratives that convert — from pricing psychology to demo architecture to sales enablement.
                 </p>
                 <div className="space-y-3 text-sm text-gray">
                   <div className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2 flex-shrink-0"></span>
-                    <span>Designed identity-based wellness programs integrating education, embodiment, and habit design — coaching 100+ women toward sustainable behavior change</span>
+                    <span>Co-architect of Chatman&apos;s AI product suite — shaping agent behavior, conversation design, and client-facing automation workflows</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2 flex-shrink-0"></span>
-                    <span>Led curriculum development, instructional design, and documentation across public education, federal agencies, and community-based programs</span>
+                    <span>Leads GTM strategy, sales narrative, and pricing frameworks for AI-powered platforms across real estate, insurance, and service industries</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 bg-gold rounded-full mt-2 flex-shrink-0"></span>
-                    <span>Applied coaching, facilitation, and communication strategy through academic instruction, youth leadership, and athletic coaching — building trust and team cohesion in high-accountability settings</span>
+                    <span>Background in behavioral strategy and systems design — applied to product adoption, retention engineering, and human-centered AI experiences</span>
                   </div>
                 </div>
               </div>
