@@ -33,7 +33,7 @@ const initialMessages: Message[] = [
   {
     id: 1,
     sender: 'ai',
-    text: "I'm the Tessara AI assistant. I can discuss AI architecture, operational systems, and how we approach complex business challenges. How can I help?",
+    text: "Hi, I'm Tiffany — the Tiffany agent. I can discuss AI architecture, operational systems, and how we approach complex business challenges. How can I help?",
     time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     options: [
       'Tell me about your approach',
@@ -231,7 +231,7 @@ export default function ChatWidget({ onOpenLeadModal, schedulingUrl }: ChatWidge
                 </svg>
               </div>
               <div>
-                <h4 className="font-semibold text-white">Tessara AI</h4>
+                <h4 className="font-semibold text-white">Tiffany</h4>
                 <div className="flex items-center space-x-1">
                   <span className="w-2 h-2 bg-gold rounded-full animate-pulse" />
                   <span className="text-xs text-gray-muted">Online</span>
@@ -394,7 +394,7 @@ export default function ChatWidget({ onOpenLeadModal, schedulingUrl }: ChatWidge
               </button>
             </div>
             <p className="text-xs text-gray-muted mt-2 text-center">
-              Powered by Tessara AI
+              Tiffany by Tessara
             </p>
           </div>
         </div>
@@ -413,7 +413,7 @@ export default function ChatWidget({ onOpenLeadModal, schedulingUrl }: ChatWidge
               </svg>
             </div>
             <div>
-              <h4 className="font-semibold text-white">Tessara AI</h4>
+              <h4 className="font-semibold text-white">Tiffany</h4>
               <p className="text-xs text-gray-muted">Click to expand</p>
             </div>
           </div>
