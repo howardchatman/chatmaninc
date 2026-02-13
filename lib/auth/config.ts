@@ -4,8 +4,8 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 
 // Admin users with their passwords (stored in env vars)
 const ADMIN_USERS: Record<string, { name: string; passwordEnvVar: string }> = {
-  'howard@chatmaninc.com': { name: 'Howard Chatman', passwordEnvVar: 'ADMIN_PASSWORD' },
-  'ecko@chatmaninc.com': { name: 'Ecko Chatman', passwordEnvVar: 'ADMIN_PASSWORD_ECKO' },
+  'howard@tessarasystems.com': { name: 'Howard Chatman', passwordEnvVar: 'ADMIN_PASSWORD' },
+  'ecko@tessarasystems.com': { name: 'Ecko Chatman', passwordEnvVar: 'ADMIN_PASSWORD_ECKO' },
 };
 
 // Admin emails list for quick lookup

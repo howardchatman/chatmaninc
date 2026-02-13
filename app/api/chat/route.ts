@@ -10,7 +10,7 @@ interface ChatMessage {
 
 // Fallback responses when Retell is unavailable
 const FALLBACK_RESPONSES: Record<string, string> = {
-  approach: "At Chatman Inc, we architect AI systems that transform operational complexity into competitive advantage. Our approach focuses on identifying high-leverage decision points where intelligence creates the most value.",
+  approach: "At Tessara Systems, we architect AI systems that transform operational complexity into competitive advantage. Our approach focuses on identifying high-leverage decision points where intelligence creates the most value.",
   industries: "We work across industries where operational complexity creates opportunity: real estate, insurance, healthcare, financial services, and professional services. Each engagement is tailored to the specific decision architecture of your business.",
   project: "Every engagement begins with understanding your operational landscape. We identify where decisions bottleneck, where data sits unused, and where intelligence can create leverage. Would you like to discuss your specific challenge?",
   default: "I can discuss our approach to AI architecture, the industries we serve, or explore how we might help with your specific operational challenges. What interests you most?",
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
         agent_id: RETELL_CHAT_AGENT_ID,
         messages: messages,
         metadata: {
-          source: 'chatman-inc-website',
+          source: 'tessara-systems-website',
         },
       }),
     });

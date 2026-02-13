@@ -139,7 +139,7 @@ function calculateLeadScore(leadData: Record<string, string>, transcript: string
   return Math.min(score, 100);
 }
 
-// Chatman Inc agent IDs - add your agent IDs here
+// Tessara Systems agent IDs - add your agent IDs here
 const CHATMAN_AGENT_IDS = [
   process.env.NEXT_PUBLIC_RETELL_CHAT_AGENT_ID,
   process.env.NEXT_PUBLIC_RETELL_AGENT_ID,
@@ -160,14 +160,14 @@ export async function POST(request: NextRequest) {
 
     const data = JSON.parse(payload);
 
-    // Check if this call is for a Chatman Inc agent
+    // Check if this call is for a Tessara Systems agent
     const call = data.call || data;
     const agentId = call.agent_id;
 
     if (agentId && CHATMAN_AGENT_IDS.length > 0 && !CHATMAN_AGENT_IDS.includes(agentId)) {
-      // Not a Chatman agent, ignore (let other webhook handle it)
-      console.log('Ignoring webhook for non-Chatman agent:', agentId);
-      return NextResponse.json({ success: true, message: 'Not a Chatman agent, ignored' });
+      // Not a Tessara agent, ignore (let other webhook handle it)
+      console.log('Ignoring webhook for non-Tessara agent:', agentId);
+      return NextResponse.json({ success: true, message: 'Not a Tessara agent, ignored' });
     }
 
     // Retell sends different event types

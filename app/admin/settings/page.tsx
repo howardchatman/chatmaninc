@@ -320,7 +320,7 @@ STRIPE_WEBHOOK_SECRET=whsec_...`}
               </div>
               <div>
                 <p className="text-white font-medium">Howard Chatman</p>
-                <p className="text-sm text-gray-muted">howard@chatmaninc.com</p>
+                <p className="text-sm text-gray-muted">howard@tessarasystems.com</p>
               </div>
             </div>
             <span className="px-2 py-1 bg-gold/20 text-gold text-xs rounded">Admin</span>

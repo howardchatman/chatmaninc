@@ -16,8 +16,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Chatman Inc | AI Business Architecture",
-  description: "We partner with founders and executives to build intelligent systems that reduce friction and accelerate decision-making.",
+  title: "Tessara Systems | Decision-Grade AI Architecture",
+  description: "We architect decision-grade AI systems for calls, workflows, and operations. Patent-pending technology. Enterprise-grade.",
 };
 
 export default function RootLayout({

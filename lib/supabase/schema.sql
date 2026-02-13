@@ -1,4 +1,4 @@
--- Chatman Inc CRM Database Schema
+-- Tessara Systems CRM Database Schema
 -- Run this in Supabase SQL Editor
 
 -- Enable UUID extension

@@ -1,4 +1,4 @@
--- Pricing Quotes Table for Chatman Inc Internal Calculator
+-- Pricing Quotes Table for Tessara Systems Internal Calculator
 -- Run this in Supabase SQL Editor
 
 CREATE TABLE IF NOT EXISTS pricing_quotes (

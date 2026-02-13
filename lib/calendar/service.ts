@@ -355,7 +355,7 @@ async function createGoogleEvent(
       },
       body: JSON.stringify({
         summary: `Strategy Call - ${request.name}${request.company ? ` (${request.company})` : ''}`,
-        description: `Booked via Chatman Inc website\n\nContact: ${request.email}${request.phone ? `\nPhone: ${request.phone}` : ''}${request.notes ? `\n\nNotes: ${request.notes}` : ''}`,
+        description: `Booked via Tessara Systems website\n\nContact: ${request.email}${request.phone ? `\nPhone: ${request.phone}` : ''}${request.notes ? `\n\nNotes: ${request.notes}` : ''}`,
         start: {
           dateTime: start.toISOString(),
           timeZone: request.timezone,
@@ -367,7 +367,7 @@ async function createGoogleEvent(
         attendees: [{ email: request.email }],
         conferenceData: {
           createRequest: {
-            requestId: `chatman-${Date.now()}`,
+            requestId: `tessara-${Date.now()}`,
             conferenceSolutionKey: { type: 'hangoutsMeet' },
           },
         },
@@ -429,7 +429,7 @@ async function createOutlookEvent(
       subject: `Strategy Call - ${request.name}${request.company ? ` (${request.company})` : ''}`,
       body: {
         contentType: 'HTML',
-        content: `<p>Booked via Chatman Inc website</p><p>Contact: ${request.email}${request.phone ? `<br>Phone: ${request.phone}` : ''}${request.notes ? `</p><p>Notes: ${request.notes}` : ''}</p>`,
+        content: `<p>Booked via Tessara Systems website</p><p>Contact: ${request.email}${request.phone ? `<br>Phone: ${request.phone}` : ''}${request.notes ? `</p><p>Notes: ${request.notes}` : ''}</p>`,
       },
       start: {
         dateTime: start.toISOString(),

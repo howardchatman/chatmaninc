@@ -5,6 +5,9 @@
 :root {
   --font-instrument-serif: 'Instrument Serif', serif;
   --font-dm-sans: 'DM Sans', sans-serif;
+  --accent: #4fd1c5;
+  --accent-bright: #6ee7db;
+  --accent-glow: rgba(79, 209, 197, 0.15);
 }
 
 html {
@@ -19,18 +22,76 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-instrument-serif);
 }
 
-/* Blueprint Grid Background */
-.hero-grid {
-  background-image:
-    linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+/* Tessellation Background Pattern */
+.tessellation-bg {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%234fd1c5' stroke-width='0.5' opacity='0.035'/%3E%3Cpath d='M30 15L45 30L30 45L15 30Z' fill='none' stroke='%234fd1c5' stroke-width='0.3' opacity='0.025'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  background-attachment: fixed;
 }
 
-/* Subtle dot grid pattern */
+/* Hero radial glow */
+.hero-glow {
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(79, 209, 197, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
+}
+
+/* Dot grid for alternating sections */
 .dot-grid {
-  background-image: radial-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(rgba(79, 209, 197, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Scroll reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card hover accent top border */
+.card-hover {
+  position: relative;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 12px 12px 0 0;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  border-color: rgba(79, 209, 197, 0.3);
+}
+
+.card-hover:hover::before {
+  opacity: 1;
+}
+
+/* Section divider gradient lines */
+.section-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #2a3148, transparent);
+}
+
+/* Frosted glass */
+.glass {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 /* Flow line animation */
@@ -42,35 +103,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .flow-line {
   animation: flowLine 3s ease-in-out infinite;
-}
-
-/* Section divider with node */
-.section-divider {
-  position: relative;
-}
-
-.section-divider::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 8px;
-  background: #D4AF37;
-  border-radius: 50%;
-  opacity: 0.5;
-}
-
-.section-divider::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 4px;
-  transform: translateX(-50%);
-  width: 1px;
-  height: calc(100% - 8px);
-  background: linear-gradient(to bottom, rgba(212, 175, 55, 0.3), transparent);
 }
 
 /* Chat Widget Animations */
@@ -97,4 +129,14 @@ h1, h2, h3, h4, h5, h6 {
   40% {
     transform: translateY(-6px);
   }
+}
+
+/* Pulsing glow on accent elements */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 209, 197, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(79, 209, 197, 0); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }

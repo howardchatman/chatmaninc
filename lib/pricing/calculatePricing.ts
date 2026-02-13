@@ -1,4 +1,4 @@
-// Pure pricing engine for Chatman Inc internal quoting
+// Pure pricing engine for Tessara Systems internal quoting
 // No side effects — takes inputs, returns pricing breakdown
 
 export interface PricingInput {
@@ -373,7 +373,7 @@ function formatIntegrationName(integration: string): string {
 // ============================================
 
 export function generateSMSQuote(input: PricingInput, output: PricingOutput): string {
-  return `Hi ${input.companyName} — here's your Chatman AI quote:\n\n` +
+  return `Hi ${input.companyName} — here's your Tessara quote:\n\n` +
     `Plan: ${output.recommendedTier}\n` +
     `Monthly: $${output.monthlyTotal.toLocaleString()}/mo\n` +
     `Setup: $${output.setupFee.toLocaleString()} one-time\n` +
@@ -392,9 +392,9 @@ export function generateEmailQuote(input: PricingInput, output: PricingOutput): 
     .map(li => `  • ${li.item}: $${li.oneTimeCost}`)
     .join('\n');
 
-  return `Subject: Your Chatman AI Systems Quote — ${output.recommendedTier} Plan\n\n` +
+  return `Subject: Your Tessara Systems Quote — ${output.recommendedTier} Plan\n\n` +
     `Hi ${input.companyName},\n\n` +
-    `Thank you for your interest in Chatman AI. Based on our discovery call, here's what we recommend:\n\n` +
+    `Thank you for your interest in Tessara. Based on our discovery call, here's what we recommend:\n\n` +
     `RECOMMENDED PLAN: ${output.recommendedTier}\n` +
     `${output.tierReason}\n\n` +
     `MONTHLY BREAKDOWN:\n${lines}\n\n` +
@@ -403,7 +403,7 @@ export function generateEmailQuote(input: PricingInput, output: PricingOutput): 
     `ANNUAL OPTION (10% discount):\n` +
     `  $${output.annualTotal.toLocaleString()}/yr (save $${output.annualDiscount.toLocaleString()})\n\n` +
     `Next step: Schedule your onboarding call and we'll have your system live within 2 weeks.\n\n` +
-    `— The Chatman Inc Team`;
+    `— The Tessara Systems Team`;
 }
 
 export function generateProposalSummary(input: PricingInput, output: PricingOutput): string {

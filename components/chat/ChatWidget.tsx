@@ -33,7 +33,7 @@ const initialMessages: Message[] = [
   {
     id: 1,
     sender: 'ai',
-    text: "I'm the Chatman AI assistant. I can discuss AI architecture, operational systems, and how we approach complex business challenges. How can I help?",
+    text: "I'm the Tessara AI assistant. I can discuss AI architecture, operational systems, and how we approach complex business challenges. How can I help?",
     time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     options: [
       'Tell me about your approach',
@@ -46,7 +46,7 @@ const initialMessages: Message[] = [
 // Fallback responses for common topics
 const fallbackResponses: Record<string, { text: string; options?: string[] }> = {
   approach: {
-    text: "At Chatman Inc, we architect AI systems that transform operational complexity into competitive advantage. Our approach focuses on identifying high-leverage decision points where intelligence creates the most value. We don't just implement AI—we redesign how decisions flow through your organization.",
+    text: "At Tessara Systems, we architect AI systems that transform operational complexity into competitive advantage. Our approach focuses on identifying high-leverage decision points where intelligence creates the most value. We don't just implement AI—we redesign how decisions flow through your organization.",
     options: ['What industries do you serve?', 'Schedule a strategy call', 'I have a challenge to discuss'],
   },
   industries: {
@@ -231,7 +231,7 @@ export default function ChatWidget({ onOpenLeadModal, schedulingUrl }: ChatWidge
                 </svg>
               </div>
               <div>
-                <h4 className="font-semibold text-white">Chatman AI</h4>
+                <h4 className="font-semibold text-white">Tessara AI</h4>
                 <div className="flex items-center space-x-1">
                   <span className="w-2 h-2 bg-gold rounded-full animate-pulse" />
                   <span className="text-xs text-gray-muted">Online</span>
@@ -394,7 +394,7 @@ export default function ChatWidget({ onOpenLeadModal, schedulingUrl }: ChatWidge
               </button>
             </div>
             <p className="text-xs text-gray-muted mt-2 text-center">
-              Powered by Chatman AI
+              Powered by Tessara AI
             </p>
           </div>
         </div>
@@ -413,7 +413,7 @@ export default function ChatWidget({ onOpenLeadModal, schedulingUrl }: ChatWidge
               </svg>
             </div>
             <div>
-              <h4 className="font-semibold text-white">Chatman AI</h4>
+              <h4 className="font-semibold text-white">Tessara AI</h4>
               <p className="text-xs text-gray-muted">Click to expand</p>
             </div>
           </div>

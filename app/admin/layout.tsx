@@ -59,11 +59,11 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         {/* Logo */}
         <div className="h-16 flex items-center justify-between px-4 border-b border-gray-dark/30">
           <Link href="/admin" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gold rounded-sm flex items-center justify-center">
-              <span className="text-dark font-bold text-lg">C</span>
+            <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
+              <span className="text-dark font-bold text-lg">T</span>
             </div>
             {sidebarOpen && (
-              <span className="text-white font-semibold">Admin</span>
+              <span className="text-white font-semibold">Tessara</span>
             )}
           </Link>
           <button
