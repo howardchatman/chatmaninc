@@ -756,8 +756,8 @@ export default function Home() {
             {/* Ecko */}
             <div className="bg-dark-card p-8 md:p-10 rounded-xl border border-border reveal">
               <div className="flex flex-col gap-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-xl flex-shrink-0 flex items-center justify-center">
-                  <span className="text-3xl font-serif text-accent">ES</span>
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-xl flex-shrink-0 overflow-hidden">
+                  <img src="/ecko_photo.png" alt="Ecko Steadman" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-serif text-text-primary mb-1">Ecko Steadman</h3>
