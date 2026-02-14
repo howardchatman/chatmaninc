@@ -285,7 +285,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ========== HERO — Split Layout with Image ========== */}
+      {/* ========== HERO — Backbone / Infrastructure Theme ========== */}
       <section className="pt-36 pb-20 px-6 md:px-12 relative hero-glow tessellation-bg">
         <div className="max-w-[1200px] mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -296,15 +296,15 @@ export default function Home() {
               </div>
 
               <h1 className="text-[clamp(2.5rem,6.5vw,4.5rem)] font-serif leading-[1.1] mb-6 text-text-primary tracking-tight reveal">
-                AI that decides who<br />deserves your <span className="text-accent italic">attention</span>.
+                We engineer the<br /><span className="text-accent italic">backbone</span> your business runs on.
               </h1>
 
               <p className="text-lg text-text-secondary mb-4 max-w-xl leading-relaxed reveal">
-                We architect decision-grade AI systems for calls, workflows, and operations. Not chatbots. Not demos. Production systems that decide, act, and orchestrate.
+                Platforms. Automation. Intelligent systems. We build the operational infrastructure that answers every call, captures every lead, and powers every workflow — so nothing falls through the cracks.
               </p>
 
               <p className="text-sm text-accent/80 italic mb-8 max-w-xl reveal">
-                Missed calls recovered. Qualified leads routed. Compliance maintained. Every interaction captured with confidence-verified data.
+                The foundation behind businesses that never stop. Patent-pending architecture, built to scale.
               </p>
 
               <div className="flex flex-wrap gap-4 mb-12 reveal">
@@ -325,9 +325,9 @@ export default function Home() {
               {/* Metrics row */}
               <div className="flex flex-wrap gap-8 pt-8 border-t border-border reveal">
                 {[
-                  { value: '24/7', label: 'Autonomous Coverage' },
+                  { value: '24/7', label: 'Always-On Systems' },
                   { value: '100%', label: 'Audit Trail' },
-                  { value: 'Live', label: 'Validation Layer' },
+                  { value: '4', label: 'Core Pillars' },
                   { value: '3', label: 'Patents Pending' },
                 ].map((m, i) => (
                   <div key={i}>
@@ -338,21 +338,32 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Hero Image */}
+            {/* Hero Image — Infrastructure */}
             <div className="hidden lg:block reveal">
               <div className="relative">
                 <div className="absolute -inset-4 bg-accent/5 rounded-2xl blur-xl"></div>
                 <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-accent/5">
                   <img
-                    src="/sections/hero-dashboard.jpg"
-                    alt="AI-powered analytics dashboard"
-                    className="w-full h-auto object-cover"
+                    src="/sections/hero-infrastructure.jpg"
+                    alt="Enterprise server infrastructure powering business operations"
+                    className="w-full h-[480px] object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                      <span className="text-sm text-white/90">Decision systems processing in real-time</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent"></div>
+                  {/* Overlay stats */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="bg-dark/60 backdrop-blur-sm rounded-lg p-3 border border-accent/20">
+                        <p className="text-accent text-xs uppercase tracking-wider mb-1">Platforms</p>
+                        <p className="text-white text-sm font-medium">SaaS & Custom</p>
+                      </div>
+                      <div className="bg-dark/60 backdrop-blur-sm rounded-lg p-3 border border-accent/20">
+                        <p className="text-accent text-xs uppercase tracking-wider mb-1">Systems</p>
+                        <p className="text-white text-sm font-medium">IoT & Edge</p>
+                      </div>
+                      <div className="bg-dark/60 backdrop-blur-sm rounded-lg p-3 border border-accent/20">
+                        <p className="text-accent text-xs uppercase tracking-wider mb-1">Security</p>
+                        <p className="text-white text-sm font-medium">Enterprise-Grade</p>
+                      </div>
                     </div>
                   </div>
                 </div>
