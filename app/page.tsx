@@ -344,8 +344,8 @@ export default function Home() {
                 <div className="absolute -inset-4 bg-accent/5 rounded-2xl blur-xl"></div>
                 <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-accent/5">
                   <img
-                    src="/sections/hero-infrastructure.jpg"
-                    alt="Enterprise server infrastructure powering business operations"
+                    src="/sections/hero-team.jpg"
+                    alt="Team engineering and building business systems together"
                     className="w-full h-[480px] object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent"></div>
